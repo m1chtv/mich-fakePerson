@@ -78,7 +78,6 @@
       gap: 0.5rem;
     }
 
-    /* Profile Card */
     .profile-card {
       background: linear-gradient(135deg, #1a2a3a 0%, #0f1a24 100%);
       border-radius: 28px;
@@ -375,7 +374,6 @@
       </div>
     </div>
 
-    <!-- Profile Card -->
     <div class="profile-card" id="profileCard">
       <div class="profile-header">
         <div class="profile-avatar" id="profileAvatar">
@@ -473,7 +471,6 @@
 
 <script>
   (function() {
-    // DOM elements
     const profileFullName = document.getElementById('profileFullName');
     const profileUsername = document.getElementById('profileUsername');
     const profileEmail = document.getElementById('profileEmail');
@@ -494,13 +491,11 @@
     const genderOptions = document.querySelectorAll('.gender-option');
     const countryOptions = document.querySelectorAll('.country-option');
 
-    // State
     let currentGender = 'any';
     let currentCountry = 'us';
     let currentPerson = null;
     let history = [];
 
-    // Data pools
     const firstNames = {
       male: ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles', 'Christopher', 'Daniel', 'Matthew', 'Anthony', 'Donald'],
       female: ['Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Karen', 'Nancy', 'Lisa', 'Betty', 'Margaret', 'Sandra'],
@@ -513,7 +508,6 @@
 
     const domains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com', 'example.com', 'mail.com'];
 
-    // Country formats
     const countryFormats = {
       us: {
         name: 'USA',
@@ -578,24 +572,19 @@
     }
 
     function generatePerson() {
-      // Gender selection
       let gender = currentGender;
       if (gender === 'any') {
         gender = Math.random() > 0.5 ? 'male' : 'female';
       }
 
-      // Name
       const firstName = randomFromArray(firstNames[gender]);
       const lastName = randomFromArray(lastNames);
       const fullName = `${firstName} ${lastName}`;
       
-      // Username
       const username = `@${firstName.toLowerCase()}.${lastName.toLowerCase()}${Math.floor(Math.random() * 100)}`;
 
-      // Email
       const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@${randomFromArray(domains)}`;
 
-      // Birth date
       const year = Math.floor(Math.random() * 40) + 1960; // 1960-1999
       const month = Math.floor(Math.random() * 12) + 1;
       const day = Math.floor(Math.random() * 28) + 1;
@@ -603,12 +592,10 @@
       const age = new Date().getFullYear() - year;
       const birthStr = `${day} ${monthNames[month-1]} ${year} (${age} years)`;
 
-      // Country specific
       const country = countryFormats[currentCountry];
       const phone = generateRandomNumber(country.phone);
       const ssn = generateRandomNumber(country.ssn);
       
-      // Address
       const streetNum = Math.floor(Math.random() * 999) + 1;
       const streetNames = ['Main St', 'Oak Ave', 'Maple Rd', 'Cedar Ln', 'Pine Dr', 'Washington St', 'Park Ave'];
       const street = randomFromArray(streetNames);
@@ -628,10 +615,8 @@
         address = `${streetNum} ${street}, ${city}`;
       }
 
-      // Job
       const job = randomFromArray(jobs);
 
-      // Avatar emoji based on gender
       const avatar = gender === 'male' ? '👨' : '👩';
 
       return {
@@ -698,7 +683,6 @@
       
       document.querySelectorAll('.history-item').forEach(el => {
         el.addEventListener('click', function() {
-          // Just show name in history, can't regenerate full person
         });
       });
     }
@@ -710,7 +694,6 @@
       });
     }
 
-    // Event listeners
     genderOptions.forEach(opt => {
       opt.addEventListener('click', function() {
         genderOptions.forEach(o => o.classList.remove('active'));
@@ -746,7 +729,6 @@
       historyList.innerHTML = '<div style="color:#ffd1c7; padding:0.4rem;">✨ generate people</div>';
     });
 
-    // Initialize
     currentPerson = generatePerson();
     updateDisplay(currentPerson);
     addToHistory(currentPerson);
