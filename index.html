@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
+  <title>✨ mich · fake person generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: linear-gradient(145deg, #0b0e14 0%, #1a1f2a 100%);
+      font-family: "Inter", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      color: #eef2fb;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .generator-card {
+      background: rgba(18, 24, 33, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(74, 144, 226, 0.25);
+      border-radius: 48px 48px 40px 40px;
+      padding: 2.2rem 2rem;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+    }
+
+    .top-badge {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2.2rem;
+      flex-wrap: wrap;
+    }
+
+    .title-group {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .title-group i {
+      font-size: 2.2rem;
+      color: #ff9f7b;
+      filter: drop-shadow(0 0 6px #ff7b4d88);
+    }
+
+    h1 {
+      font-weight: 650;
+      font-size: 1.9rem;
+      letter-spacing: -0.01em;
+      background: linear-gradient(120deg, #fff0f0, #ffd1c7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .person-badge {
+      background: #1e2b3c;
+      padding: 0.4rem 1.4rem;
+      border-radius: 100px;
+      border: 1px solid #ff9f7b60;
+      color: #ffd1c7;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    /* Profile Card */
+    .profile-card {
+      background: linear-gradient(135deg, #1a2a3a 0%, #0f1a24 100%);
+      border-radius: 28px;
+      padding: 2rem;
+      border: 1px solid #ff9f7b;
+      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5);
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #ff9f7b, #ff7b4d);
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: white;
+      box-shadow: 0 10px 20px rgba(255, 125, 75, 0.3);
+    }
+
+    .profile-name {
+      flex: 1;
+    }
+
+    .profile-name h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #ffefd1;
+      margin-bottom: 0.5rem;
+    }
+
+    .profile-name .username {
+      font-size: 1.1rem;
+      color: #ff9f7b;
+      font-family: monospace;
+    }
+
+    .profile-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .detail-item {
+      background: #111c26;
+      border-radius: 20px;
+      padding: 1rem 1.5rem;
+      border: 1px solid #ff9f7b;
+    }
+
+    .detail-label {
+      font-size: 0.8rem;
+      color: #ff9f7b;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .detail-value {
+      font-size: 1.1rem;
+      color: #ffefd1;
+      word-break: break-word;
+    }
+
+    .detail-value i {
+      color: #ff9f7b;
+      width: 20px;
+    }
+
+    .hero {
+      background: #0c111b;
+      border-radius: 28px;
+      padding: 0.2rem;
+      border: 1px solid #ff9f7b;
+      box-shadow: 0 8px 0 #06080c;
+      margin-bottom: 2rem;
+    }
+
+    .screen {
+      background: #0b0f16;
+      border-radius: 28px;
+      padding: 1.8rem;
+      border-bottom: 1px solid #ff9f7b;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 0.8rem;
+      justify-content: flex-end;
+      margin-top: 1rem;
+    }
+
+    .icon-btn {
+      background: #1d2a36;
+      border: none;
+      color: #ffd1c7;
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: 0.16s;
+      border: 1px solid #ff9f7b;
+      box-shadow: 0 5px 0 #0e141c;
+    }
+
+    .icon-btn:hover {
+      background: #2f3e4f;
+      color: white;
+      border-color: #ff7b4d;
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 #0e141c;
+    }
+
+    .icon-btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #0e141c;
+    }
+
+    .icon-btn.large {
+      width: auto;
+      padding: 0 2rem;
+      gap: 0.5rem;
+    }
+
+    .options-panel {
+      background: rgba(12, 22, 32, 0.6);
+      border-radius: 28px;
+      padding: 1.8rem 1.9rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid #ff9f7b;
+      backdrop-filter: blur(10px);
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      margin-bottom: 1.4rem;
+      color: #ffd1c7;
+      font-size: 1.1rem;
+    }
+
+    .gender-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    .gender-option {
+      background: #111c26;
+      border: 1.5px solid #ff9f7b;
+      border-radius: 20px;
+      padding: 1rem 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: #ffd1c7;
+      transition: all 0.15s;
+      cursor: pointer;
+      box-shadow: 0 3px 0 #0c131c;
+    }
+
+    .gender-option i {
+      font-size: 1.6rem;
+      color: #ff9f7b;
+    }
+
+    .gender-option.active {
+      background: #33221f;
+      border-color: #ff7b4d;
+      color: white;
+      box-shadow: 0 0 12px #ff7b4d70, 0 3px 0 #994d2d;
+    }
+
+    .country-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .country-option {
+      background: #111c26;
+      border: 1.5px solid #ff9f7b;
+      border-radius: 20px;
+      padding: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: #ffd1c7;
+      cursor: pointer;
+    }
+
+    .country-option.active {
+      background: #33221f;
+      border-color: #ff7b4d;
+      color: white;
+    }
+
+    .history-area {
+      background: rgba(5, 13, 19, 0.7);
+      border-radius: 24px;
+      padding: 1.4rem 1.7rem;
+      backdrop-filter: blur(8px);
+      border: 1px solid #ff9f7b;
+    }
+
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .history-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      max-height: 110px;
+      overflow-y: auto;
+    }
+
+    .history-item {
+      background: #0e1d29;
+      border-radius: 18px;
+      padding: 0.55rem 1.2rem;
+      font-size: 0.9rem;
+      border-left: 4px solid #ff9f7b;
+      color: #ffd1c7;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      cursor: pointer;
+    }
+
+    .history-item:hover {
+      background: #1a2d3a;
+    }
+
+    .clear-history {
+      background: none;
+      border: 1px solid #ff9f7b;
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      color: #ffd1c7;
+      cursor: pointer;
+    }
+
+    .footnote {
+      margin-top: 1.2rem;
+      text-align: center;
+      color: #bda27e;
+      font-size: 0.75rem;
+    }
+
+    @media (max-width: 550px) {
+      .generator-card { padding: 1.5rem; }
+      .profile-header { flex-direction: column; text-align: center; }
+      .profile-name h2 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="generator-card">
+    <div class="top-badge">
+      <div class="title-group">
+        <i class="fas fa-user-circle"></i>
+        <h1>fake·mich</h1>
+      </div>
+      <div class="person-badge">
+        <i class="fas fa-globe"></i> <span id="locationBadge">USA</span>
+      </div>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="profile-card" id="profileCard">
+      <div class="profile-header">
+        <div class="profile-avatar" id="profileAvatar">
+          👤
+        </div>
+        <div class="profile-name">
+          <h2 id="profileFullName">John Michael Smith</h2>
+          <div class="username" id="profileUsername">@john.smith</div>
+        </div>
+      </div>
+
+      <div class="profile-details">
+        <div class="detail-item">
+          <div class="detail-label"><i class="fas fa-envelope"></i> Email</div>
+          <div class="detail-value" id="profileEmail">john.smith@email.com</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label"><i class="fas fa-phone"></i> Phone</div>
+          <div class="detail-value" id="profilePhone">+1 (555) 123-4567</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label"><i class="fas fa-calendar"></i> Birth Date</div>
+          <div class="detail-value" id="profileBirth">15 Mar 1985 (39 years)</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label"><i class="fas fa-map-pin"></i> Address</div>
+          <div class="detail-value" id="profileAddress">123 Main St, New York, NY 10001</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label"><i class="fas fa-briefcase"></i> Occupation</div>
+          <div class="detail-value" id="profileJob">Software Engineer</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label"><i class="fas fa-credit-card"></i> SSN/ID</div>
+          <div class="detail-value" id="profileSSN">123-45-6789</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div class="screen">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <div style="color: #ff9f7b; font-size: 0.8rem;">JSON OUTPUT</div>
+            <div id="jsonOutput" style="font-family: monospace; font-size: 0.9rem; color: #ffefd1;">{...}</div>
+          </div>
+          <div class="action-buttons">
+            <button class="icon-btn" id="copyBtn" title="Copy JSON"><i class="far fa-copy"></i></button>
+            <button class="icon-btn" id="refreshBtn" title="Generate new"><i class="fas fa-sync-alt"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="options-panel">
+      <div class="section-label"><i class="fas fa-sliders"></i> <span>GENDER · COUNTRY</span></div>
+
+      <div class="gender-grid" id="genderGrid">
+        <div class="gender-option active" data-gender="any">
+          <i class="fas fa-venus-mars"></i>
+          <span>Any</span>
+        </div>
+        <div class="gender-option" data-gender="male">
+          <i class="fas fa-mars"></i>
+          <span>Male</span>
+        </div>
+        <div class="gender-option" data-gender="female">
+          <i class="fas fa-venus"></i>
+          <span>Female</span>
+        </div>
+      </div>
+
+      <div class="country-grid" id="countryGrid">
+        <div class="country-option active" data-country="us">🇺🇸 USA</div>
+        <div class="country-option" data-country="uk">🇬🇧 UK</div>
+        <div class="country-option" data-country="ca">🇨🇦 Canada</div>
+        <div class="country-option" data-country="au">🇦🇺 Australia</div>
+        <div class="country-option" data-country="de">🇩🇪 Germany</div>
+        <div class="country-option" data-country="fr">🇫🇷 France</div>
+        <div class="country-option" data-country="jp">🇯🇵 Japan</div>
+        <div class="country-option" data-country="br">🇧🇷 Brazil</div>
+      </div>
+    </div>
+
+    <div class="history-area">
+      <div class="history-header">
+        <span><i class="fas fa-clock-rotate-left"></i> recent people</span>
+        <button class="clear-history" id="clearHistoryBtn"><i class="fas fa-trash-alt"></i> clear</button>
+      </div>
+      <div class="history-list" id="historyList"></div>
+    </div>
+    <div class="footnote"><i class="fas fa-sparkles"></i> fake data · testing only</div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // DOM elements
+    const profileFullName = document.getElementById('profileFullName');
+    const profileUsername = document.getElementById('profileUsername');
+    const profileEmail = document.getElementById('profileEmail');
+    const profilePhone = document.getElementById('profilePhone');
+    const profileBirth = document.getElementById('profileBirth');
+    const profileAddress = document.getElementById('profileAddress');
+    const profileJob = document.getElementById('profileJob');
+    const profileSSN = document.getElementById('profileSSN');
+    const profileAvatar = document.getElementById('profileAvatar');
+    const locationBadge = document.getElementById('locationBadge');
+    const jsonOutput = document.getElementById('jsonOutput');
+    
+    const copyBtn = document.getElementById('copyBtn');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+    const historyList = document.getElementById('historyList');
+    
+    const genderOptions = document.querySelectorAll('.gender-option');
+    const countryOptions = document.querySelectorAll('.country-option');
+
+    // State
+    let currentGender = 'any';
+    let currentCountry = 'us';
+    let currentPerson = null;
+    let history = [];
+
+    // Data pools
+    const firstNames = {
+      male: ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles', 'Christopher', 'Daniel', 'Matthew', 'Anthony', 'Donald'],
+      female: ['Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Karen', 'Nancy', 'Lisa', 'Betty', 'Margaret', 'Sandra'],
+      any: ['Alex', 'Jordan', 'Casey', 'Taylor', 'Morgan', 'Riley', 'Jamie', 'Avery', 'Quinn', 'Parker']
+    };
+
+    const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez', 'Anderson', 'Taylor', 'Thomas', 'Moore', 'Jackson'];
+
+    const jobs = ['Software Engineer', 'Teacher', 'Doctor', 'Lawyer', 'Architect', 'Nurse', 'Accountant', 'Designer', 'Manager', 'Consultant', 'Chef', 'Electrician', 'Writer', 'Artist', 'Scientist'];
+
+    const domains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com', 'example.com', 'mail.com'];
+
+    // Country formats
+    const countryFormats = {
+      us: {
+        name: 'USA',
+        phone: '+1 (555) XXX-XXXX',
+        ssn: 'XXX-XX-XXXX',
+        city: ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia'],
+        state: ['NY', 'CA', 'IL', 'TX', 'AZ', 'PA'],
+        zip: 'XXXXX'
+      },
+      uk: {
+        name: 'UK',
+        phone: '+44 20 XXXX XXXX',
+        ssn: 'NINO: ABXXXXXX',
+        city: ['London', 'Manchester', 'Birmingham', 'Leeds', 'Glasgow', 'Liverpool'],
+        postcode: 'XX XXX'
+      },
+      ca: {
+        name: 'Canada',
+        phone: '+1 (416) XXX-XXXX',
+        ssn: 'SIN: XXX-XXX-XXX',
+        city: ['Toronto', 'Vancouver', 'Montreal', 'Calgary', 'Ottawa', 'Edmonton'],
+        province: ['ON', 'BC', 'QC', 'AB']
+      },
+      au: {
+        name: 'Australia',
+        phone: '+61 2 XXXX XXXX',
+        ssn: 'TFN: XXX XXX XXX',
+        city: ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide', 'Canberra']
+      },
+      de: {
+        name: 'Germany',
+        phone: '+49 30 XXXXXXX',
+        ssn: 'ID: XX XXX XXX X',
+        city: ['Berlin', 'Munich', 'Hamburg', 'Cologne', 'Frankfurt', 'Stuttgart']
+      },
+      fr: {
+        name: 'France',
+        phone: '+33 1 XX XX XX XX',
+        ssn: 'INSEE: XXXXXXXXXX',
+        city: ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes']
+      },
+      jp: {
+        name: 'Japan',
+        phone: '+81 3-XXXX-XXXX',
+        ssn: 'MyNumber: XXXX-XXXX-XXXX',
+        city: ['Tokyo', 'Osaka', 'Kyoto', 'Yokohama', 'Nagoya', 'Sapporo']
+      },
+      br: {
+        name: 'Brazil',
+        phone: '+55 11 XXXXX-XXXX',
+        ssn: 'CPF: XXX.XXX.XXX-XX',
+        city: ['São Paulo', 'Rio de Janeiro', 'Brasília', 'Salvador', 'Fortaleza']
+      }
+    };
+
+    function randomFromArray(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function generateRandomNumber(format) {
+      return format.replace(/X/g, () => Math.floor(Math.random() * 10));
+    }
+
+    function generatePerson() {
+      // Gender selection
+      let gender = currentGender;
+      if (gender === 'any') {
+        gender = Math.random() > 0.5 ? 'male' : 'female';
+      }
+
+      // Name
+      const firstName = randomFromArray(firstNames[gender]);
+      const lastName = randomFromArray(lastNames);
+      const fullName = `${firstName} ${lastName}`;
+      
+      // Username
+      const username = `@${firstName.toLowerCase()}.${lastName.toLowerCase()}${Math.floor(Math.random() * 100)}`;
+
+      // Email
+      const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@${randomFromArray(domains)}`;
+
+      // Birth date
+      const year = Math.floor(Math.random() * 40) + 1960; // 1960-1999
+      const month = Math.floor(Math.random() * 12) + 1;
+      const day = Math.floor(Math.random() * 28) + 1;
+      const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const age = new Date().getFullYear() - year;
+      const birthStr = `${day} ${monthNames[month-1]} ${year} (${age} years)`;
+
+      // Country specific
+      const country = countryFormats[currentCountry];
+      const phone = generateRandomNumber(country.phone);
+      const ssn = generateRandomNumber(country.ssn);
+      
+      // Address
+      const streetNum = Math.floor(Math.random() * 999) + 1;
+      const streetNames = ['Main St', 'Oak Ave', 'Maple Rd', 'Cedar Ln', 'Pine Dr', 'Washington St', 'Park Ave'];
+      const street = randomFromArray(streetNames);
+      
+      let address;
+      if (currentCountry === 'us') {
+        const city = randomFromArray(country.city);
+        const state = randomFromArray(country.state);
+        const zip = generateRandomNumber('XXXXX');
+        address = `${streetNum} ${street}, ${city}, ${state} ${zip}`;
+      } else if (currentCountry === 'uk') {
+        const city = randomFromArray(country.city);
+        const postcode = `${String.fromCharCode(65+Math.floor(Math.random()*26))}${String.fromCharCode(65+Math.floor(Math.random()*26))} ${Math.floor(Math.random()*9)}${String.fromCharCode(65+Math.floor(Math.random()*26))}${String.fromCharCode(65+Math.floor(Math.random()*26))}`;
+        address = `${streetNum} ${street}, ${city}, ${postcode}`;
+      } else {
+        const city = randomFromArray(country.city);
+        address = `${streetNum} ${street}, ${city}`;
+      }
+
+      // Job
+      const job = randomFromArray(jobs);
+
+      // Avatar emoji based on gender
+      const avatar = gender === 'male' ? '👨' : '👩';
+
+      return {
+        fullName,
+        username,
+        email,
+        phone,
+        birth: birthStr,
+        address,
+        job,
+        ssn,
+        avatar,
+        gender,
+        country: country.name,
+        json: JSON.stringify({
+          name: fullName,
+          username: username,
+          email: email,
+          phone: phone,
+          birth: birthStr,
+          address: address,
+          occupation: job,
+          id: ssn,
+          gender: gender,
+          country: country.name
+        }, null, 2)
+      };
+    }
+
+    function updateDisplay(person) {
+      profileFullName.textContent = person.fullName;
+      profileUsername.textContent = person.username;
+      profileEmail.textContent = person.email;
+      profilePhone.textContent = person.phone;
+      profileBirth.textContent = person.birth;
+      profileAddress.textContent = person.address;
+      profileJob.textContent = person.job;
+      profileSSN.textContent = person.ssn;
+      profileAvatar.textContent = person.avatar;
+      locationBadge.textContent = person.country;
+      jsonOutput.textContent = person.json;
+    }
+
+    function addToHistory(person) {
+      const name = person.fullName;
+      if (history[0] === name) return;
+      
+      history.unshift(name);
+      if (history.length > 6) history.pop();
+      
+      if (history.length === 0) {
+        historyList.innerHTML = '<div style="color:#ffd1c7; padding:0.4rem;">✨ generate people</div>';
+        return;
+      }
+      
+      let html = '';
+      history.forEach((item, index) => {
+        html += `<div class="history-item" data-index="${index}">
+                    <i class="fas fa-user"></i>
+                    <span>${item}</span>
+                </div>`;
+      });
+      historyList.innerHTML = html;
+      
+      document.querySelectorAll('.history-item').forEach(el => {
+        el.addEventListener('click', function() {
+          // Just show name in history, can't regenerate full person
+        });
+      });
+    }
+
+    function copyToClipboard() {
+      navigator.clipboard.writeText(jsonOutput.textContent).then(() => {
+        jsonOutput.style.color = '#b5ffb9';
+        setTimeout(() => jsonOutput.style.color = '', 200);
+      });
+    }
+
+    // Event listeners
+    genderOptions.forEach(opt => {
+      opt.addEventListener('click', function() {
+        genderOptions.forEach(o => o.classList.remove('active'));
+        this.classList.add('active');
+        currentGender = this.dataset.gender;
+        currentPerson = generatePerson();
+        updateDisplay(currentPerson);
+        addToHistory(currentPerson);
+      });
+    });
+
+    countryOptions.forEach(opt => {
+      opt.addEventListener('click', function() {
+        countryOptions.forEach(o => o.classList.remove('active'));
+        this.classList.add('active');
+        currentCountry = this.dataset.country;
+        currentPerson = generatePerson();
+        updateDisplay(currentPerson);
+        addToHistory(currentPerson);
+      });
+    });
+
+    refreshBtn.addEventListener('click', () => {
+      currentPerson = generatePerson();
+      updateDisplay(currentPerson);
+      addToHistory(currentPerson);
+    });
+
+    copyBtn.addEventListener('click', copyToClipboard);
+
+    clearHistoryBtn.addEventListener('click', () => {
+      history = [];
+      historyList.innerHTML = '<div style="color:#ffd1c7; padding:0.4rem;">✨ generate people</div>';
+    });
+
+    // Initialize
+    currentPerson = generatePerson();
+    updateDisplay(currentPerson);
+    addToHistory(currentPerson);
+  })();
+</script>
+</body>
+</html>
